@@ -7,7 +7,7 @@ declare class SortedSetCache {
      * @param {string[]} [invalidationLists] A list of invalidation lists to add the key to.
      * @returns {Promise} A promise that resolves when the object has been added to the cache.
      */
-    static add(key: string, objs: {score: number, value: any}[], expiration: Date, invalidationLists: string[]): Promise<void>
+    static add(key: string, objs: {score: number, value: any}[], expiration?: Date, invalidationLists?: string[]): Promise<void>
 
     /**
      * Combines two sorted sets into one.
@@ -17,7 +17,7 @@ declare class SortedSetCache {
      * @param {string[]} [invalidationLists] A list of invalidation lists to add the key to.
      * @returns {Promise} A promise that resolves when the object has been added to the cache.
      */
-    static combine(key: string, keys: string[], expiration: Date, invalidationLists: string[]): Promise<void>
+    static combine(key: string, keys: string[], expiration?: Date, invalidationLists?: string[]): Promise<void>
 
     /**
      * Retrieves data from a set.

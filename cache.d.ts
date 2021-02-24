@@ -7,7 +7,7 @@ declare class Cache {
      * @param {string[]} [invalidationLists] A list of invalidation lists to add the key to.
      * @returns {Promise} A promise that resolves when the object has been added to the cache.
      */
-    static add(key: string, obj: object, expiration: Date, invalidationLists: string[]): Promise<void>
+    static add(key: string, obj: object, expiration?: Date, invalidationLists?: string[]): Promise<void>
 
     /**
      * Check if all keys exist.

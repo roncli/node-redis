@@ -7,7 +7,7 @@ declare class HashCache {
      * @param {string[]} [invalidationLists] A list of invalidation lists to add the key to.
      * @returns {Promise} A promise that resolves when the object has been added to the cache.
      */
-    static add(key: string, objs: {key: string, value: any}[], expiration: Date, invalidationLists: string[]): Promise<void>
+    static add(key: string, objs: {key: string, value: any}[], expiration?: Date, invalidationLists?: string[]): Promise<void>
 
     /**
      * Gets an object from the cache.
