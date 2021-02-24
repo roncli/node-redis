@@ -1,5 +1,8 @@
 /**
  * @typedef {import("ioredis").RedisOptions} IORedis.RedisOptions
+ * @typedef {typeof import("./cache")} CacheType
+ * @typedef {typeof import("./hashCache")} HashCacheType
+ * @typedef {typeof import("./sortedSetCache")} sortedSetCacheType
  */
 
 const Cache = require("./cache"),
@@ -31,7 +34,7 @@ class Redis {
     //  ##    # #   ##   #  #   ##
     /**
      * The Cache class for basic caching functions.
-     * @returns {Cache} The Cache class.
+     * @returns {CacheType} The Cache class.
      */
     static get Cache() {
         return Cache;
@@ -59,7 +62,7 @@ class Redis {
     // #  #   # #  ###    #  #   ##    # #   ##   #  #   ##
     /**
      * The HashCache class for caching functions related to hashes.
-     * @returns {HashCache} The HashCache class.
+     * @returns {HashCacheType} The HashCache class.
      */
     static get HashCache() {
         return HashCache;
@@ -88,7 +91,7 @@ class Redis {
     //  ##    ##   #       ##   ##    ###   ##    ##     ##   ##    # #   ##   #  #   ##
     /**
      * The SortedSet class for caching functions related to sorted sets.
-     * @returns {SortedSetCache} The SortedSetCache class.
+     * @returns {sortedSetCacheType} The SortedSetCache class.
      */
     static get SortedSetCache() {
         return SortedSetCache;

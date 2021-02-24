@@ -7,9 +7,9 @@ import SortedSetCache from "./sortedSetCache"
 declare class Redis {
     /**
      * The Cache class for basic caching functions.
-     * @returns {Cache} The Cache class.
+     * @returns {typeof Cache} The Cache class.
      */
-    static get Cache(): Cache
+    static get Cache(): typeof Cache
 
     /**
      * An event emitter that can be used to return events from the library.
@@ -19,17 +19,17 @@ declare class Redis {
 
     /**
      * The HashCache class for caching functions related to hashes.
-     * @returns {HashCache} The HashCache class.
+     * @returns {typeof HashCache} The HashCache class.
      */
-    static get HashCache(): HashCache
+    static get HashCache(): typeof HashCache
 
     static get options(): IORedis.RedisOptions
 
     /**
      * The SortedSet class for caching functions related to sorted sets.
-     * @returns {SortedSetCache} The SortedSetCache class.
+     * @returns {typeof SortedSetCache} The SortedSetCache class.
      */
-    static get SortedSetCache(): SortedSetCache
+    static get SortedSetCache(): typeof SortedSetCache
 
     /**
      * Setup the connection to Redis.
