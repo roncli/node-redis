@@ -1,5 +1,4 @@
 /**
- * @typedef {import("ioredis").RedisOptions} IORedis.RedisOptions
  * @typedef {typeof import("./cache")} CacheType
  * @typedef {typeof import("./hashCache")} HashCacheType
  * @typedef {typeof import("./sortedSetCache")} sortedSetCacheType
@@ -12,7 +11,7 @@ const Cache = require("./cache"),
 
     eventEmitter = new EventEmitter();
 
-/** @type {IORedis.RedisOptions} */
+/** @type {{host: string, port: number, password: string}} */
 let redisOptions;
 
 //  ####              #    #
@@ -77,7 +76,7 @@ class Redis {
     //       #
     /**
      * The options to use with Redis.
-     * @returns {IORedis.RedisOptions} The connection options.
+     * @returns {{host: string, port: number, password: string}} The connection options.
      */
     static get options() {
         return redisOptions;
@@ -106,7 +105,7 @@ class Redis {
     //                          #
     /**
      * Setup the connection to Redis.
-     * @param {IORedis.RedisOptions} options The connection options.
+     * @param {{host: string, port: number, password: string}} options The connection options.
      * @returns {void}
      */
     static setup(options) {

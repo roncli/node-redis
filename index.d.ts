@@ -1,7 +1,6 @@
 import Cache from "./cache"
 import {EventEmitter} from "events"
 import HashCache from "./hashCache"
-import IORedis from "ioredis"
 import SortedSetCache from "./sortedSetCache"
 
 declare class Redis {
@@ -23,7 +22,7 @@ declare class Redis {
      */
     static get HashCache(): typeof HashCache
 
-    static get options(): IORedis.RedisOptions
+    static get options(): {host: string, port: number, password: string}
 
     /**
      * The SortedSet class for caching functions related to sorted sets.
@@ -33,10 +32,10 @@ declare class Redis {
 
     /**
      * Setup the connection to Redis.
-     * @param {IORedis.RedisOptions} options The connection options.
+     * @param {{host: string, port: number, password: string}} options The connection options.
      * @returns {void}
      */
-    static setup(options: IORedis.RedisOptions): void
+    static setup(options: {host: string, port: number, password: string}): void
 }
 
 export = Redis
