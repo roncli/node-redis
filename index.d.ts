@@ -23,6 +23,8 @@ declare class Redis {
      */
     static get HashCache(): HashCache
 
+    static get options(): IORedis.RedisOptions
+
     /**
      * The SortedSet class for caching functions related to sorted sets.
      * @returns {SortedSetCache} The SortedSetCache class.
