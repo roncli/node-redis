@@ -5,11 +5,11 @@
  */
 
 const Cache = require("./cache"),
-    EventEmitter = require("events").EventEmitter,
     HashCache = require("./hashCache"),
+    RedisEventEmitter = require("./redisEventEmitter"),
     SortedSetCache = require("./sortedSetCache"),
 
-    eventEmitter = new EventEmitter();
+    eventEmitter = new RedisEventEmitter();
 
 /** @type {{host: string, port: number, password: string}} */
 let redisOptions;
@@ -47,7 +47,7 @@ class Redis {
     //  ##    #     ##   #  #    ##  ####  #  #  ###     ##    ##   ##   #
     /**
      * An event emitter that can be used to return events from the library.
-     * @returns {EventEmitter} The event emitter.
+     * @returns {RedisEventEmitter} The event emitter.
      */
     static get eventEmitter() {
         return eventEmitter;
