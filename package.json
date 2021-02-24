@@ -1,0 +1,34 @@
+{
+    "name": "node-redis",
+    "version": "0.1.0",
+    "description": "A simple library to make redis calls without having to worry about connections and command syntax.",
+    "homepage": "https://github.com/roncli/node-redis",
+    "bugs": {
+        "email": "roncli@roncli.com",
+        "url": "https://github.com/roncli/node-redis/issues"
+    },
+    "license": "MIT",
+    "author": {
+        "email": "roncli@roncli.com",
+        "name": "Ronald M. Clifford",
+        "url": "http://roncli.com"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/roncli/node-redis.git"
+    },
+    "dependencies": {
+        "generic-pool": "3.7.1",
+        "ioredis": "4.22.0"
+    },
+    "devDependencies": {
+        "@babel/core": "7.13.1",
+        "@babel/eslint-parser": "7.13.4",
+        "@types/generic-pool": "3.1.9",
+        "@types/ioredis": "4.22.0"
+    },
+    "engines": {
+        "node": ">=10.0.0"
+    },
+    "private": true
+}
