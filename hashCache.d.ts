@@ -13,9 +13,9 @@ declare class HashCache {
      * Gets an object from the cache.
      * @param {string} key The key to get.
      * @param {string} hash The hash to get.
-     * @returns {Promise<object>} A promise that returns the object.
+     * @returns {Promise<any>} A promise that returns the object.
      */
-    static get(key: string, hash: string): Promise<object>
+    static get(key: string, hash: string): Promise<any>
 }
 
 export = HashCache

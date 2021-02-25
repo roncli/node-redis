@@ -22,7 +22,7 @@ class Cache {
     /**
      * Adds an object to the cache.
      * @param {string} key The key to add.
-     * @param {object} obj The object to save.
+     * @param {any} obj The object to save.
      * @param {Date} [expiration] The date and time to expire the cache.
      * @param {string[]} [invalidationLists] A list of invalidation lists to add the key to.
      * @returns {Promise} A promise that resolves when the object has been added to the cache.
@@ -111,7 +111,7 @@ class Cache {
     /**
      * Gets an object from the cache.
      * @param {string} key The key to get.
-     * @returns {Promise<object>} A promise that returns the retrieved object.
+     * @returns {Promise<any>} A promise that returns the retrieved object.
      */
     static async get(key) {
         let client;

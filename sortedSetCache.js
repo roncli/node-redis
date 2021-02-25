@@ -106,7 +106,7 @@ class SortedSetCache {
      * @param {string} key The key to get the data for.
      * @param {number} min The minimum index of the set.
      * @param {number} max The maximum index of the set.
-     * @returns {Promise<object[]>} A promise that returns the objects.
+     * @returns {Promise<any[]>} A promise that returns the objects.
      */
     static async get(key, min, max) {
         let client;
@@ -145,7 +145,7 @@ class SortedSetCache {
      * @param {string} key The key to get the data for.
      * @param {number} min The minimum index of the set.
      * @param {number} max The maximum index of the set.
-     * @returns {Promise<object[]>} A promise that returns the objects.
+     * @returns {Promise<any[]>} A promise that returns the objects.
      */
     static async getReverse(key, min, max) {
         let client;

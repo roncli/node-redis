@@ -24,18 +24,18 @@ declare class SortedSetCache {
      * @param {string} key The key to get the data for.
      * @param {number} min The minimum index of the set.
      * @param {number} max The maximum index of the set.
-     * @returns {Promise<object[]>} A promise that returns the objects.
+     * @returns {Promise<any[]>} A promise that returns the objects.
      */
-    static get(key: string, min: number, max: number): Promise<object[]>
+    static get(key: string, min: number, max: number): Promise<any[]>
 
     /**
      * Retrieves data from a set in reverse order.
      * @param {string} key The key to get the data for.
      * @param {number} min The minimum index of the set.
      * @param {number} max The maximum index of the set.
-     * @returns {Promise<object[]>} A promise that returns the objects.
+     * @returns {Promise<any[]>} A promise that returns the objects.
      */
-    static getReverse(key: string, min: number, max: number): Promise<object[]>
+    static getReverse(key: string, min: number, max: number): Promise<any[]>
 }
 
 export = SortedSetCache
