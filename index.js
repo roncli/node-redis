@@ -5,14 +5,12 @@
  */
 
 const Cache = require("./cache"),
+    Connection = require("./connection"),
     HashCache = require("./hashCache"),
     RedisEventEmitter = require("./redisEventEmitter"),
     SortedSetCache = require("./sortedSetCache"),
 
     eventEmitter = new RedisEventEmitter();
-
-/** @type {{host: string, port: number, password: string}} */
-let redisOptions;
 
 //  ####              #    #
 //  #   #             #
@@ -67,21 +65,6 @@ class Redis {
         return HashCache;
     }
 
-    //              #     #
-    //              #
-    //  ##   ###   ###   ##     ##   ###    ###
-    // #  #  #  #   #     #    #  #  #  #  ##
-    // #  #  #  #   #     #    #  #  #  #    ##
-    //  ##   ###     ##  ###    ##   #  #  ###
-    //       #
-    /**
-     * The options to use with Redis.
-     * @returns {{host: string, port: number, password: string}} The connection options.
-     */
-    static get options() {
-        return redisOptions;
-    }
-
     //  ##                #             #   ##          #     ##               #
     // #  #               #             #  #  #         #    #  #              #
     //  #     ##   ###   ###    ##    ###   #     ##   ###   #      ###   ##   ###    ##
@@ -109,7 +92,7 @@ class Redis {
      * @returns {void}
      */
     static setup(options) {
-        redisOptions = options;
+        Connection.setup(options, eventEmitter);
     }
 }
 

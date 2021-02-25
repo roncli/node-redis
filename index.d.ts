@@ -22,8 +22,6 @@ declare class Redis {
      */
     static get HashCache(): typeof HashCache
 
-    static get options(): {host: string, port: number, password: string}
-
     /**
      * The SortedSet class for caching functions related to sorted sets.
      * @returns {typeof SortedSetCache} The SortedSetCache class.

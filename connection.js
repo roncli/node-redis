@@ -1,9 +1,18 @@
+/**
+ * @typedef {import("./redisEventEmitter")} RedisEventEmitter
+ */
+
 const GenericPool = require("generic-pool"),
-    IoRedis = require("ioredis"),
-    Redis = require(".");
+    IoRedis = require("ioredis");
 
 /** @type {GenericPool.Pool<IoRedis.Redis>} */
 let pool;
+
+/** @type {RedisEventEmitter} */
+let redisEventEmitter;
+
+/** @type {{host: string, port: number, password: string}} */
+let redisOptions;
 
 //   ###                                       #       #
 //  #   #                                      #
@@ -16,6 +25,24 @@ let pool;
  * A class that handles calls to Redis.
  */
 class Connection {
+    //               #
+    //               #
+    //  ###    ##   ###   #  #  ###
+    // ##     # ##   #    #  #  #  #
+    //   ##   ##     #    #  #  #  #
+    // ###     ##     ##   ###  ###
+    //                          #
+    /**
+     * Sets up the options to use with Redis.
+     * @param {{host: string, port: number, password: string}} options The connection options.
+     * @param {RedisEventEmitter} eventEmitter The event emitter to use for errors.
+     * @returns {void}
+     */
+    static setup(options, eventEmitter) {
+        redisOptions = options;
+        redisEventEmitter = eventEmitter;
+    }
+
     //                   ##
     //                    #
     // ###    ##    ##    #
@@ -35,7 +62,7 @@ class Connection {
                     let client;
 
                     try {
-                        client = new IoRedis(Redis.options);
+                        client = new IoRedis(redisOptions);
                     } catch (err) {
                         if (client) {
                             client.removeAllListeners().disconnect();
@@ -69,11 +96,11 @@ class Connection {
             });
 
             pool.on("factoryCreateError", (err) => {
-                Redis.eventEmitter.emit("error", {err, message: "There was an error creating a Redis object in the pool."});
+                redisEventEmitter.emit("error", {err, message: "There was an error creating a Redis object in the pool."});
             });
 
             pool.on("factoryDestroyError", (err) => {
-                Redis.eventEmitter.emit("error", {err, message: "There was an error destroying a Redis object in the pool."});
+                redisEventEmitter.emit("error", {err, message: "There was an error destroying a Redis object in the pool."});
             });
         }
 
