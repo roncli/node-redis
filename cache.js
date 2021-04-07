@@ -173,6 +173,30 @@ class Cache {
             }
         }
     }
+
+    //  #     #    ##
+    //  #     #     #
+    // ###   ###    #
+    //  #     #     #
+    //  #     #     #
+    //   ##    ##  ###
+    /**
+     * Gets the time remaining until a key expires.
+     * @param {string} key The key to check.
+     * @returns {Promise<number>} A promise that returns the amount of time remaining in seconds until the key expires.
+     */
+    static async ttl(key) {
+        let client;
+        try {
+            client = await Connection.pool.acquire();
+
+            return await client.ttl(key);
+        } finally {
+            if (client) {
+                await Connection.pool.release(client);
+            }
+        }
+    }
 }
 
 module.exports = Cache;

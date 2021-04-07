@@ -35,6 +35,13 @@ declare class Cache {
      * @returns {Promise} A promise that resolves when the invalidation lists have been invalidated.
      */
     static invalidate(invalidationLists: string[]): Promise<void>
+
+    /**
+     * Gets the time remaining until a key expires.
+     * @param {string} key The key to check.
+     * @returns {Promise<number>} A promise that returns the amount of time remaining in seconds until the key expires.
+     */
+    static ttl(key: string): Promise<number>
 }
 
 export = Cache

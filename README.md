@@ -6,5 +6,8 @@ This library is in a prerelease state.  It does not yet provide functionality fo
 
 ## Version History
 
+### v0.1.1
+* Include TTL function.
+
 ### v0.1.0
 * Initial version.
