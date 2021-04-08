@@ -25,7 +25,7 @@
         "@babel/core": "7.13.14",
         "@babel/eslint-parser": "7.13.14",
         "@types/generic-pool": "3.1.9",
-        "@types/ioredis": "4.22.2"
+        "@types/ioredis": "4.22.3"
     },
     "engines": {
         "node": ">=10.0.0"
