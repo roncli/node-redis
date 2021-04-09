@@ -33,11 +33,7 @@ class Cache {
             client = await Connection.pool.acquire();
 
             if (expiration) {
-                // TODO: redis 6.2 will introduce PXAT expiration method.
-                // await client.set(key, JSON.stringify(obj), "PXAT", expiration.getTime());
-
-                const time = Math.ceil(Math.max(expiration.getTime() - new Date().getTime(), 1));
-                await client.set(key, JSON.stringify(obj), "PX", time);
+                await client.set(key, JSON.stringify(obj), "PXAT", expiration.getTime());
             } else {
                 await client.set(key, JSON.stringify(obj));
             }
@@ -78,6 +74,32 @@ class Cache {
         }
     }
 
+    //                    #                 ##    #
+    //                                     #  #   #
+    //  ##   #  #  ###   ##    ###    ##   #  #  ###
+    // # ##   ##   #  #   #    #  #  # ##  ####   #
+    // ##     ##   #  #   #    #     ##    #  #   #
+    //  ##   #  #  ###   ###   #      ##   #  #    ##
+    //             #
+    /**
+     * Expires a key at the specified date.
+     * @param {string} key The key to expire.
+     * @param {Date} date The date to expire the key at.
+     * @returns {Promise} A promise that resolves when the key's new expiration has been set.
+     */
+    static async expireAt(key, date) {
+        let client;
+        try {
+            client = await Connection.pool.acquire();
+
+            await client.pexpireat(key, date.getTime());
+        } finally {
+            if (client) {
+                await Connection.pool.release(client);
+            }
+        }
+    }
+
     //   #   ##                 #
     //  # #   #                 #
     //  #     #    #  #   ###   ###
@@ -111,14 +133,20 @@ class Cache {
     /**
      * Gets an object from the cache.
      * @param {string} key The key to get.
+     * @param {Date} [date] The date to expire the key at.
      * @returns {Promise<any>} A promise that returns the retrieved object.
      */
-    static async get(key) {
+    static async get(key, date) {
         let client;
         try {
             client = await Connection.pool.acquire();
 
-            const value = await client.get(key);
+            let value;
+            if (date) {
+                value = await client.getex(key, "PXAT", date.getTime());
+            } else {
+                value = await client.get(key);
+            }
 
             if (!value) {
                 return void 0;

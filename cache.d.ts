@@ -1,3 +1,11 @@
+// Add getex to ioredis typings.  TODO: Remove when @types/ioredis catches up.
+declare module "ioredis" {
+    interface Commands {
+        getex(key: KeyType, expiryMode: string, time: number, callback?: Callback<string | null>): void;
+        getex(key: KeyType, expiryMode: string, time: number): Promise<string | null>;
+    }
+}
+
 declare class Cache {
     /**
      * Adds an object to the cache.
@@ -17,6 +25,14 @@ declare class Cache {
     static exists(keys: string[]): Promise<boolean>
 
     /**
+     * Expires a key at the specified date.
+     * @param {string} key The key to expire.
+     * @param {Date} date The date to expire the key at.
+     * @returns {Promise} A promise that resolves when the key's new expiration has been set.
+     */
+    static expireAt(key: string, date: Date): Promise<void>
+
+    /**
      * Flushes the cache.
      * @returns {Promise} A promise that resolves when the cache has been flushed.
      */
@@ -25,9 +41,10 @@ declare class Cache {
     /**
      * Gets an object from the cache.
      * @param {string} key The key to get.
+     * @param {Date} date The optional new date to expire the key at.
      * @returns {Promise<any>} A promise that returns the retrieved object.
      */
-    static get(key: string): Promise<any>
+    static get(key: string, date?: Date): Promise<any>
 
     /**
      * Invalidates keys from a list of invalidate lists.

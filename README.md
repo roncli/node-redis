@@ -6,6 +6,11 @@ This library is in a prerelease state.  It does not yet provide functionality fo
 
 ## Version History
 
+### v0.1.2
+* New Cache.expireAt function.
+* Cache.get now has an optional expire date to set the expiration of a retrieved key.
+* Cache.set now uses the PXAT option.
+
 ### v0.1.1
 * Include TTL function.
 
