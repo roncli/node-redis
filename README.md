@@ -7,7 +7,7 @@ This library is in a prerelease state.  It does not yet provide functionality fo
 ## Version History
 
 ### v0.1.3
-* New Cahce.remove function.
+* New Cache.remove function.
 
 ### v0.1.2
 * New Cache.expireAt function.
