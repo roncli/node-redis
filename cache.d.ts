@@ -54,6 +54,13 @@ declare class Cache {
     static invalidate(invalidationLists: string[]): Promise<void>
 
     /**
+     * Removes objects from the cache.
+     * @param {string[]} keys The list of keys to remove.
+     * @returns {Promise} A promise that resolves when the keys have been removed.
+     */
+    static remove(keys: string[]): Promise<void>
+
+    /**
      * Gets the time remaining until a key expires.
      * @param {string} key The key to check.
      * @returns {Promise<number>} A promise that returns the amount of time remaining in seconds until the key expires.

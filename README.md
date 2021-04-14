@@ -6,6 +6,9 @@ This library is in a prerelease state.  It does not yet provide functionality fo
 
 ## Version History
 
+### v0.1.3
+* New Cahce.remove function.
+
 ### v0.1.2
 * New Cache.expireAt function.
 * Cache.get now has an optional expire date to set the expiration of a retrieved key.

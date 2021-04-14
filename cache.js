@@ -202,6 +202,28 @@ class Cache {
         }
     }
 
+    // ###    ##   # #    ##   # #    ##
+    // #  #  # ##  ####  #  #  # #   # ##
+    // #     ##    #  #  #  #  # #   ##
+    // #      ##   #  #   ##    #     ##
+    /**
+     * Removes objects from the cache.
+     * @param {string[]} keys The list of keys to remove.
+     * @returns {Promise} A promise that resolves when the keys have been removed.
+     */
+    static async remove(keys) {
+        let client;
+        try {
+            client = await Connection.pool.acquire();
+
+            await client.del(...keys);
+        } finally {
+            if (client) {
+                await Connection.pool.release(client);
+            }
+        }
+    }
+
     //  #     #    ##
     //  #     #     #
     // ###   ###    #
