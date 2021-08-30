@@ -51,6 +51,21 @@ class Redis {
         return eventEmitter;
     }
 
+    //              #     ##   ##     #                 #
+    //              #    #  #   #                       #
+    //  ###   ##   ###   #      #    ##     ##   ###   ###
+    // #  #  # ##   #    #      #     #    # ##  #  #   #
+    //  ##   ##     #    #  #   #     #    ##    #  #   #
+    // #      ##     ##   ##   ###   ###    ##   #  #    ##
+    //  ###
+    /**
+     * Gets a redis client.  Intended to be called by services that only need one client.
+     * @returns {PromiseLike<Redis>} A promise that resolves with the client.
+     */
+    static getClient() {
+        return Connection.pool.acquire();
+    }
+
     // #  #               #      ##               #
     // #  #               #     #  #              #
     // ####   ###   ###   ###   #      ###   ##   ###    ##
