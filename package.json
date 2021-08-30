@@ -24,7 +24,7 @@
     "devDependencies": {
         "@babel/core": "7.15.0",
         "@babel/eslint-parser": "7.13.14",
-        "@types/generic-pool": "3.1.9",
+        "@types/generic-pool": "3.1.10",
         "@types/ioredis": "4.27.1"
     },
     "engines": {
