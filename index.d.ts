@@ -29,6 +29,12 @@ declare class Redis {
     static get SortedSetCache(): typeof SortedSetCache
 
     /**
+     * Gets a redis client.  Intended to be called by services that only need one client.
+     * @returns {PromiseLike<Redis>} A promise that resolves with the client.
+     */
+    static getClient(): PromiseLike<Redis>
+
+    /**
      * Setup the connection to Redis.
      * @param {{host: string, port: number, password: string}} options The connection options.
      * @returns {void}
