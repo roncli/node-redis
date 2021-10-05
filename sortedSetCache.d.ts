@@ -29,6 +29,26 @@ declare class SortedSetCache {
     static get(key: string, min: number, max: number): Promise<any[]>
 
     /**
+     * Retrieves data from a set.
+     * @param {string} key The key to get the data for.
+     * @param {number} min The minimum index of the set.
+     * @param {number} max The maximum index of the set.
+     * @param {boolean} withScores Whether to include scores with the results.
+     * @returns {Promise<any[]>} A promise that returns the objects.
+     */
+    static get(key: string, min: number, max: number, withScores: false): Promise<any[]>
+
+    /**
+     * Retrieves data from a set.
+     * @param {string} key The key to get the data for.
+     * @param {number} min The minimum index of the set.
+     * @param {number} max The maximum index of the set.
+     * @param {boolean} withScores Whether to include scores with the results.
+     * @returns {Promise<{value: true, score: number}[]>} A promise that returns the objects.
+     */
+    static get(key: string, min: number, max: number, withScores: true): Promise<{value: true, score: number}[]>
+
+    /**
      * Retrieves data from a set in reverse order.
      * @param {string} key The key to get the data for.
      * @param {number} min The minimum index of the set.
