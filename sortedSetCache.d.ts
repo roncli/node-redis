@@ -44,9 +44,9 @@ declare class SortedSetCache {
      * @param {number} min The minimum index of the set.
      * @param {number} max The maximum index of the set.
      * @param {boolean} withScores Whether to include scores with the results.
-     * @returns {Promise<{value: true, score: number}[]>} A promise that returns the objects.
+     * @returns {Promise<{value: any, score: number}[]>} A promise that returns the objects.
      */
-    static get(key: string, min: number, max: number, withScores: true): Promise<{value: true, score: number}[]>
+    static get(key: string, min: number, max: number, withScores: true): Promise<{value: any, score: number}[]>
 
     /**
      * Retrieves data from a set in reverse order.
