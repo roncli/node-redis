@@ -124,7 +124,7 @@ class SortedSetCache {
                 const result = [];
 
                 for (let index = 0; index < items.length; index += 2) {
-                    const item = result[index];
+                    const item = items[index];
 
                     result.push({
                         value: JSON.parse(item, (k, v) => {
