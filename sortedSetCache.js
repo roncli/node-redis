@@ -134,7 +134,7 @@ class SortedSetCache {
 
                             return v;
                         }),
-                        score: result[index + 1]
+                        score: items[index + 1]
                     });
                 }
 
