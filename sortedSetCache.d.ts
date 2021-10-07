@@ -20,6 +20,15 @@ declare class SortedSetCache {
     static combine(key: string, keys: string[], expiration?: Date, invalidationLists?: string[]): Promise<void>
 
     /**
+     * Counts the number of items in the sorted set.
+     * @param {string} key The key.
+     * @param {string} min The minimum value to count.
+     * @param {string} max The maximum value to count.
+     * @returns {Promise<number>} A promise that returns the number of items in the sorted set.
+     */
+    static count(key: string, min: string, max: string): Promise<number>
+
+    /**
      * Retrieves data from a set.
      * @param {string} key The key to get the data for.
      * @param {number} min The minimum index of the set.

@@ -94,6 +94,32 @@ class SortedSetCache {
         }
     }
 
+    //                          #
+    //                          #
+    //  ##    ##   #  #  ###   ###
+    // #     #  #  #  #  #  #   #
+    // #     #  #  #  #  #  #   #
+    //  ##    ##    ###  #  #    ##
+    /**
+     * Counts the number of items in the sorted set.
+     * @param {string} key The key.
+     * @param {string} min The minimum value to count.
+     * @param {string} max The maximum value to count.
+     * @returns {Promise<number>} A promise that returns the number of items in the sorted set.
+     */
+    static async count(key, min, max) {
+        let client;
+        try {
+            client = await Connection.pool.acquire();
+
+            return await client.zcount(key, min, max);
+        } finally {
+            if (client) {
+                await Connection.pool.release(client);
+            }
+        }
+    }
+
     //              #
     //              #
     //  ###   ##   ###
