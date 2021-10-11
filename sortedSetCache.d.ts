@@ -65,6 +65,22 @@ declare class SortedSetCache {
      * @returns {Promise<any[]>} A promise that returns the objects.
      */
     static getReverse(key: string, min: number, max: number): Promise<any[]>
+
+    /**
+     * Retrieves the rank of an item in a set.
+     * @param {string} key The key to get the data for.
+     * @param {any} member The member to get the data for.
+     * @returns {Promise<number>} A promise that returns the rank of the item in the set.
+     */
+    static rank(key: string, member: any): Promise<number>
+
+    /**
+     * Retrieves the reverse rank of an item in a set.
+     * @param {string} key The key to get the data for.
+     * @param {any} member The member to get the data for.
+     * @returns {Promise<number>} A promise that returns the rank of the item in the set.
+     */
+    static rankReverse(key: string, member: any): Promise<number>
 }
 
 export = SortedSetCache
