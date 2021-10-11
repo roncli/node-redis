@@ -225,6 +225,56 @@ class SortedSetCache {
             }
         }
     }
+
+    //                   #
+    //                   #
+    // ###    ###  ###   # #
+    // #  #  #  #  #  #  ##
+    // #     # ##  #  #  # #
+    // #      # #  #  #  #  #
+    /**
+     * Retrieves the rank of an item in a set.
+     * @param {string} key The key to get the data for.
+     * @param {any} member The member to get the data for.
+     * @returns {Promise<number>} A promise that returns the rank of the item in the set.
+     */
+    static async rank(key, member) {
+        let client;
+        try {
+            client = await Connection.pool.acquire();
+
+            return client.zrank(key, JSON.stringify(member));
+        } finally {
+            if (client) {
+                await Connection.pool.release(client);
+            }
+        }
+    }
+
+    //                   #     ###
+    //                   #     #  #
+    // ###    ###  ###   # #   #  #   ##   # #    ##   ###    ###    ##
+    // #  #  #  #  #  #  ##    ###   # ##  # #   # ##  #  #  ##     # ##
+    // #     # ##  #  #  # #   # #   ##    # #   ##    #       ##   ##
+    // #      # #  #  #  #  #  #  #   ##    #     ##   #     ###     ##
+    /**
+     * Retrieves the reverse rank of an item in a set.
+     * @param {string} key The key to get the data for.
+     * @param {any} member The member to get the data for.
+     * @returns {Promise<number>} A promise that returns the rank of the item in the set.
+     */
+    static async rankReverse(key, member) {
+        let client;
+        try {
+            client = await Connection.pool.acquire();
+
+            return client.zrevrank(key, JSON.stringify(member));
+        } finally {
+            if (client) {
+                await Connection.pool.release(client);
+            }
+        }
+    }
 }
 
 module.exports = SortedSetCache;
