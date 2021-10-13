@@ -6,6 +6,10 @@ This library is in a prerelease state.  It does not yet provide functionality fo
 
 ## Version History
 
+### v0.1.6
+* Add option to include scores with a SortedSetCache.get result.
+* Add count, rank, and rankReverse functions to SortedSetCache.
+
 ### v0.1.5
 * Typings for new Redis.getClient function.
 
