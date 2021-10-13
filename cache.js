@@ -166,6 +166,45 @@ class Cache {
         }
     }
 
+    //              #     ##   ##    ##    #  #
+    //              #    #  #   #     #    # #
+    //  ###   ##   ###   #  #   #     #    ##     ##   #  #   ###
+    // #  #  # ##   #    ####   #     #    ##    # ##  #  #  ##
+    //  ##   ##     #    #  #   #     #    # #   ##     # #    ##
+    // #      ##     ##  #  #  ###   ###   #  #   ##     #   ###
+    //  ###                                             #
+    /**
+     * Gets a list of all keys that match the specified pattern.
+     * @param {string} [pattern] The optional pattern.
+     * @returns {Promise<string[]>} A promise that returns all of the matching keys.
+     */
+    static async getAllKeys(pattern) {
+        let client;
+        try {
+            client = await Connection.pool.acquire();
+
+            /** @type {string} */
+            let cursor = void 0;
+
+            /** @type {string[]} */
+            let keys = void 0;
+
+            const allKeys = [];
+
+            while (cursor !== "0") {
+                [cursor, keys] = await client.scan(cursor || "0", "COUNT", 1000, pattern ? "MATCH" : void 0, pattern);
+
+                allKeys.push(...keys);
+            }
+
+            return allKeys;
+        } finally {
+            if (client) {
+                await Connection.pool.release(client);
+            }
+        }
+    }
+
     //  #                      ##     #       #         #
     //                          #             #         #
     // ##    ###   # #    ###   #    ##     ###   ###  ###    ##

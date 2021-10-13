@@ -47,6 +47,13 @@ declare class Cache {
     static get(key: string, date?: Date): Promise<any>
 
     /**
+     * Gets a list of all keys that match the specified pattern.
+     * @param {string} [pattern] The optional pattern.
+     * @returns {Promise<string[]>} A promise that returns all of the matching keys.
+     */
+    static getAllKeys(pattern: string): Promise<string[]>
+
+    /**
      * Invalidates keys from a list of invalidate lists.
      * @param {string[]} invalidationLists The invalidation lists to invalidate.
      * @returns {Promise} A promise that resolves when the invalidation lists have been invalidated.
