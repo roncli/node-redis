@@ -160,7 +160,7 @@ class SortedSetCache {
 
                             return v;
                         }),
-                        score: items[index + 1]
+                        score: +items[index + 1]
                     });
                 }
 
@@ -227,7 +227,7 @@ class SortedSetCache {
 
                             return v;
                         }),
-                        score: items[index + 1]
+                        score: +items[index + 1]
                     });
                 }
 
