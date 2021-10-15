@@ -199,12 +199,40 @@ class SortedSetCache {
      * @param {string} key The key to get the data for.
      * @param {number} min The minimum index of the set.
      * @param {number} max The maximum index of the set.
+     * @param {boolean} [withScores] Whether to include scores with the results.
      * @returns {Promise<any[]>} A promise that returns the objects.
      */
-    static async getReverse(key, min, max) {
+    static async getReverse(key, min, max, withScores) {
         let client;
         try {
             client = await Connection.pool.acquire();
+
+            if (withScores) {
+                const items = await client.zrevrange(key, min, max, "WITHSCORES");
+
+                if (!items) {
+                    return void 0;
+                }
+
+                const result = [];
+
+                for (let index = 0; index < items.length; index += 2) {
+                    const item = items[index];
+
+                    result.push({
+                        value: JSON.parse(item, (k, v) => {
+                            if (typeof v === "string" && dateMatch.test(v)) {
+                                return new Date(v);
+                            }
+
+                            return v;
+                        }),
+                        score: items[index + 1]
+                    });
+                }
+
+                return result;
+            }
 
             const items = await client.zrevrange(key, min, max);
 
