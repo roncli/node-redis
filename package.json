@@ -1,6 +1,6 @@
 {
     "name": "node-redis",
-    "version": "0.1.8",
+    "version": "0.1.9",
     "description": "A simple library to make redis calls without having to worry about connections and command syntax.",
     "homepage": "https://github.com/roncli/node-redis",
     "bugs": {
@@ -28,7 +28,7 @@
         "@types/ioredis": "4.27.8"
     },
     "engines": {
-        "node": ">=10.0.0"
+        "node": ">=16.0.0"
     },
     "private": true
 }

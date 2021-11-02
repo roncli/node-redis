@@ -6,6 +6,9 @@ This library is in a prerelease state.  It does not yet provide functionality fo
 
 ## Version History
 
+### v0.1.9
+* Add option to check if a hash key exists.
+
 ### v0.1.8
 * Add option to include scores with a SortedSetCache.getReverse result.
 
