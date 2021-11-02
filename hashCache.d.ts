@@ -10,6 +10,14 @@ declare class HashCache {
     static add(key: string, objs: {key: string, value: any}[], expiration?: Date, invalidationLists?: string[]): Promise<void>
 
     /**
+     * Checks if a hash exists in the cache.
+     * @param {string} key The key to get.
+     * @param {string} hash The hash to get.
+     * @returns {Promise<boolean>} A promise that returns whether the hash exists or not.
+     */
+    static exists(key: string, hash: string): Promise<boolean>
+
+    /**
      * Gets an object from the cache.
      * @param {string} key The key to get.
      * @param {string} hash The hash to get.

@@ -57,6 +57,31 @@ class HashCache {
         }
     }
 
+    //              #            #
+    //                           #
+    //  ##   #  #  ##     ###   ###    ###
+    // # ##   ##    #    ##      #    ##
+    // ##     ##    #      ##    #      ##
+    //  ##   #  #  ###   ###      ##  ###
+    /**
+     * Checks if a hash exists in the cache.
+     * @param {string} key The key to get.
+     * @param {string} hash The hash to get.
+     * @returns {Promise<boolean>} A promise that returns whether the hash exists or not.
+     */
+    static async exists(key, hash) {
+        let client;
+        try {
+            client = await Connection.pool.acquire();
+
+            return await client.hexists(key, hash) === 1;
+        } finally {
+            if (client) {
+                await Connection.pool.release(client);
+            }
+        }
+    }
+
     //              #
     //              #
     //  ###   ##   ###
