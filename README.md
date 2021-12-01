@@ -6,6 +6,9 @@ This library is in a prerelease state.  It does not yet provide functionality fo
 
 ## Version History
 
+### v0.1.11
+* Package updates.
+
 ### v0.1.10
 * Package updates.
 
