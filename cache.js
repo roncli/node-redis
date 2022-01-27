@@ -33,7 +33,7 @@ class Cache {
             client = await Connection.pool.acquire();
 
             if (expiration) {
-                await client.set(key, JSON.stringify(obj), "PXAT", expiration.getTime());
+                await client.set(key, JSON.stringify(obj), "PX", expiration.getTime() - new Date().getTime());
             } else {
                 await client.set(key, JSON.stringify(obj));
             }
@@ -141,12 +141,11 @@ class Cache {
         try {
             client = await Connection.pool.acquire();
 
-            let value;
             if (date) {
-                value = await client.getex(key, "PXAT", date.getTime());
-            } else {
-                value = await client.get(key);
+                await client.pexpireat(key, date.getTime());
             }
+
+            const value = await client.get(key);
 
             if (!value) {
                 return void 0;
