@@ -22,7 +22,7 @@
         "ioredis": "4.28.4"
     },
     "devDependencies": {
-        "@babel/core": "7.16.12",
+        "@babel/core": "7.17.0",
         "@babel/eslint-parser": "7.16.5",
         "@types/generic-pool": "3.1.10",
         "@types/ioredis": "4.28.7"
