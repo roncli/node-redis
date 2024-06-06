@@ -23,7 +23,7 @@
     },
     "devDependencies": {
         "@babel/core": "7.24.6",
-        "@babel/eslint-parser": "7.24.6",
+        "@babel/eslint-parser": "7.24.7",
         "@types/generic-pool": "3.8.1",
         "@types/ioredis": "5.0.0"
     },
