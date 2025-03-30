@@ -19,7 +19,7 @@
     },
     "dependencies": {
         "generic-pool": "3.9.0",
-        "ioredis": "5.4.2"
+        "ioredis": "5.6.0"
     },
     "devDependencies": {
         "@babel/core": "7.26.10",
