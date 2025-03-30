@@ -6,6 +6,10 @@ This library is in a prerelease state.  It does not yet provide functionality fo
 
 ## Version History
 
+### v0.1.20 - 3/29/2025
+* Uses `hset` instead of `hmset` in HashCache.
+* Package updates.
+
 ### v0.1.19 - 7/10/2024
 * Package updates.
 
