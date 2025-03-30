@@ -1,24 +1,13 @@
 const Connection = require("./connection"),
 
-    dateMatch = /^(?:\d{4})-(?:\d{2})-(?:\d{2})T(?:\d{2}):(?:\d{2}):(?:\d{2}(?:\.\d*))(?:Z|(?:\+|-)(?:[\d|:]*))?$/;
+    dateMatch = /^(?<year>\d{4})-(?<month>\d{2})-(?<day>\d{2})T(?<hour>\d{2}):(?<minute>\d{2}):(?<second>\d{2}(?:\.\d*))(?<timezone>Z|(?:\+|-)(?:[\d|:]*))?$/;
 
-//   ###                 #
-//  #   #                #
-//  #       ###    ###   # ##    ###
-//  #          #  #   #  ##  #  #   #
-//  #       ####  #      #   #  #####
-//  #   #  #   #  #   #  #   #  #
-//   ###    ####   ###   #   #   ###
+// MARK: class Cache
 /**
  * A class that handles caching.
  */
 class Cache {
-    //          #     #
-    //          #     #
-    //  ###   ###   ###
-    // #  #  #  #  #  #
-    // # ##  #  #  #  #
-    //  # #   ###   ###
+    // MARK: static async add
     /**
      * Adds an object to the cache.
      * @param {string} key The key to add.
@@ -50,12 +39,7 @@ class Cache {
         }
     }
 
-    //              #            #
-    //                           #
-    //  ##   #  #  ##     ###   ###    ###
-    // # ##   ##    #    ##      #    ##
-    // ##     ##    #      ##    #      ##
-    //  ##   #  #  ###   ###      ##  ###
+    // MARK: static async exists
     /**
      * Check if all keys exist.
      * @param {string[]} keys The list of keys to check.
@@ -74,13 +58,7 @@ class Cache {
         }
     }
 
-    //                    #                 ##    #
-    //                                     #  #   #
-    //  ##   #  #  ###   ##    ###    ##   #  #  ###
-    // # ##   ##   #  #   #    #  #  # ##  ####   #
-    // ##     ##   #  #   #    #     ##    #  #   #
-    //  ##   #  #  ###   ###   #      ##   #  #    ##
-    //             #
+    // MARK: static async expireAt
     /**
      * Expires a key at the specified date.
      * @param {string} key The key to expire.
@@ -100,12 +78,7 @@ class Cache {
         }
     }
 
-    //   #   ##                 #
-    //  # #   #                 #
-    //  #     #    #  #   ###   ###
-    // ###    #    #  #  ##     #  #
-    //  #     #    #  #    ##   #  #
-    //  #    ###    ###  ###    #  #
+    // MARK: static async flush
     /**
      * Flushes the cache.
      * @returns {Promise} A promise that resolves when the cache has been flushed.
@@ -123,13 +96,7 @@ class Cache {
         }
     }
 
-    //              #
-    //              #
-    //  ###   ##   ###
-    // #  #  # ##   #
-    //  ##   ##     #
-    // #      ##     ##
-    //  ###
+    // MARK: static async get
     /**
      * Gets an object from the cache.
      * @param {string} key The key to get.
@@ -165,13 +132,7 @@ class Cache {
         }
     }
 
-    //              #     ##   ##    ##    #  #
-    //              #    #  #   #     #    # #
-    //  ###   ##   ###   #  #   #     #    ##     ##   #  #   ###
-    // #  #  # ##   #    ####   #     #    ##    # ##  #  #  ##
-    //  ##   ##     #    #  #   #     #    # #   ##     # #    ##
-    // #      ##     ##  #  #  ###   ###   #  #   ##     #   ###
-    //  ###                                             #
+    // MARK: static async getAllKeys
     /**
      * Gets a list of all keys that match the specified pattern.
      * @param {string} [pattern] The optional pattern.
@@ -191,7 +152,11 @@ class Cache {
             const allKeys = [];
 
             while (cursor !== "0") {
-                [cursor, keys] = await client.scan(cursor || "0", "COUNT", 1000, pattern ? "MATCH" : void 0, pattern);
+                if (pattern) {
+                    [cursor, keys] = await client.scan(cursor || "0", "MATCH", pattern, "COUNT", 1000);
+                } else {
+                    [cursor, keys] = await client.scan(cursor || "0", "COUNT", 1000);
+                }
 
                 allKeys.push(...keys);
             }
@@ -204,12 +169,7 @@ class Cache {
         }
     }
 
-    //  #                      ##     #       #         #
-    //                          #             #         #
-    // ##    ###   # #    ###   #    ##     ###   ###  ###    ##
-    //  #    #  #  # #   #  #   #     #    #  #  #  #   #    # ##
-    //  #    #  #  # #   # ##   #     #    #  #  # ##   #    ##
-    // ###   #  #   #     # #  ###   ###    ###   # #    ##   ##
+    // MARK: static async invalidate
     /**
      * Invalidates keys from a list of invalidate lists.
      * @param {string[]} invalidationLists The invalidation lists to invalidate.
@@ -240,10 +200,7 @@ class Cache {
         }
     }
 
-    // ###    ##   # #    ##   # #    ##
-    // #  #  # ##  ####  #  #  # #   # ##
-    // #     ##    #  #  #  #  # #   ##
-    // #      ##   #  #   ##    #     ##
+    // MARK: static async remove
     /**
      * Removes objects from the cache.
      * @param {string[]} keys The list of keys to remove.
@@ -262,12 +219,7 @@ class Cache {
         }
     }
 
-    //  #     #    ##
-    //  #     #     #
-    // ###   ###    #
-    //  #     #     #
-    //  #     #     #
-    //   ##    ##  ###
+    // MARK: static async ttl
     /**
      * Gets the time remaining until a key expires.
      * @param {string} key The key to check.

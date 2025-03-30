@@ -1,24 +1,13 @@
 const Connection = require("./connection"),
 
-    dateMatch = /^(?:\d{4})-(?:\d{2})-(?:\d{2})T(?:\d{2}):(?:\d{2}):(?:\d{2}(?:\.\d*))(?:Z|(?:\+|-)(?:[\d|:]*))?$/;
+    dateMatch = /^(?<year>\d{4})-(?<month>\d{2})-(?<day>\d{2})T(?<hour>\d{2}):(?<minute>\d{2}):(?<second>\d{2}(?:\.\d*))(?<timezone>Z|(?:\+|-)(?:[\d|:]*))?$/;
 
-//  #   #                #       ###                 #
-//  #   #                #      #   #                #
-//  #   #   ###    ###   # ##   #       ###    ###   # ##    ###
-//  #####      #  #      ##  #  #          #  #   #  ##  #  #   #
-//  #   #   ####   ###   #   #  #       ####  #      #   #  #####
-//  #   #  #   #      #  #   #  #   #  #   #  #   #  #   #  #
-//  #   #   ####  ####   #   #   ###    ####   ###   #   #   ###
+// MARK: class HashCache
 /**
  * A class that handles caching for hashes.
  */
 class HashCache {
-    //          #     #
-    //          #     #
-    //  ###   ###   ###
-    // #  #  #  #  #  #
-    // # ##  #  #  #  #
-    //  # #   ###   ###
+    // MARK: static async add
     /**
      * Adds an object to the cache.
      * @param {string} key The key to add.
@@ -39,7 +28,7 @@ class HashCache {
                 values.push(JSON.stringify(obj.value));
             }
 
-            await client.hmset(key, ...values);
+            await client.hset(key, ...values);
 
             if (invalidationLists) {
                 for (const list of invalidationLists) {
@@ -57,12 +46,7 @@ class HashCache {
         }
     }
 
-    //              #            #
-    //                           #
-    //  ##   #  #  ##     ###   ###    ###
-    // # ##   ##    #    ##      #    ##
-    // ##     ##    #      ##    #      ##
-    //  ##   #  #  ###   ###      ##  ###
+    // MARK: static async exists
     /**
      * Checks if a hash exists in the cache.
      * @param {string} key The key to get.
@@ -82,13 +66,7 @@ class HashCache {
         }
     }
 
-    //              #
-    //              #
-    //  ###   ##   ###
-    // #  #  # ##   #
-    //  ##   ##     #
-    // #      ##     ##
-    //  ###
+    // MARK: static async get
     /**
      * Gets an object from the cache.
      * @param {string} key The key to get.

@@ -1,24 +1,13 @@
 const Connection = require("./connection"),
 
-    dateMatch = /^(?:\d{4})-(?:\d{2})-(?:\d{2})T(?:\d{2}):(?:\d{2}):(?:\d{2}(?:\.\d*))(?:Z|(?:\+|-)(?:[\d|:]*))?$/;
+    dateMatch = /^(?<year>\d{4})-(?<month>\d{2})-(?<day>\d{2})T(?<hour>\d{2}):(?<minute>\d{2}):(?<second>\d{2}(?:\.\d*))(?<timezone>Z|(?:\+|-)(?:[\d|:]*))?$/;
 
-//   ###                  #                #   ###           #      ###                 #
-//  #   #                 #                #  #   #          #     #   #                #
-//  #       ###   # ##   ####    ###    ## #  #       ###   ####   #       ###    ###   # ##    ###
-//   ###   #   #  ##  #   #     #   #  #  ##   ###   #   #   #     #          #  #   #  ##  #  #   #
-//      #  #   #  #       #     #####  #   #      #  #####   #     #       ####  #      #   #  #####
-//  #   #  #   #  #       #  #  #      #  ##  #   #  #       #  #  #   #  #   #  #   #  #   #  #
-//   ###    ###   #        ##    ###    ## #   ###    ###     ##    ###    ####   ###   #   #   ###
+// MARK: SortedSetCache
 /**
  * A class that handles caching for sorted sets.
  */
 class SortedSetCache {
-    //          #     #
-    //          #     #
-    //  ###   ###   ###
-    // #  #  #  #  #  #
-    // # ##  #  #  #  #
-    //  # #   ###   ###
+    // MARK: static async add
     /**
      * Adds an object to the cache.
      * @param {string} key The key to add.
@@ -57,12 +46,7 @@ class SortedSetCache {
         }
     }
 
-    //                   #      #
-    //                   #
-    //  ##    ##   # #   ###   ##    ###    ##
-    // #     #  #  ####  #  #   #    #  #  # ##
-    // #     #  #  #  #  #  #   #    #  #  ##
-    //  ##    ##   #  #  ###   ###   #  #   ##
+    // MARK: static async combine
     /**
      * Combines two sorted sets into one.
      * @param {string} key The key to combine into.
@@ -94,12 +78,7 @@ class SortedSetCache {
         }
     }
 
-    //                          #
-    //                          #
-    //  ##    ##   #  #  ###   ###
-    // #     #  #  #  #  #  #   #
-    // #     #  #  #  #  #  #   #
-    //  ##    ##    ###  #  #    ##
+    // MARK: static async count
     /**
      * Counts the number of items in the sorted set.
      * @param {string} key The key.
@@ -120,13 +99,7 @@ class SortedSetCache {
         }
     }
 
-    //              #
-    //              #
-    //  ###   ##   ###
-    // #  #  # ##   #
-    //  ##   ##     #
-    // #      ##     ##
-    //  ###
+    // MARK: static async get
     /**
      * Retrieves data from a set.
      * @param {string} key The key to get the data for.
@@ -187,13 +160,7 @@ class SortedSetCache {
         }
     }
 
-    //              #    ###
-    //              #    #  #
-    //  ###   ##   ###   #  #   ##   # #    ##   ###    ###    ##
-    // #  #  # ##   #    ###   # ##  # #   # ##  #  #  ##     # ##
-    //  ##   ##     #    # #   ##    # #   ##    #       ##   ##
-    // #      ##     ##  #  #   ##    #     ##   #     ###     ##
-    //  ###
+    // MARK: static async getReverse
     /**
      * Retrieves data from a set in reverse order.
      * @param {string} key The key to get the data for.
@@ -254,12 +221,7 @@ class SortedSetCache {
         }
     }
 
-    //                   #
-    //                   #
-    // ###    ###  ###   # #
-    // #  #  #  #  #  #  ##
-    // #     # ##  #  #  # #
-    // #      # #  #  #  #  #
+    // MARK: static async rank
     /**
      * Retrieves the rank of an item in a set.
      * @param {string} key The key to get the data for.
@@ -279,12 +241,7 @@ class SortedSetCache {
         }
     }
 
-    //                   #     ###
-    //                   #     #  #
-    // ###    ###  ###   # #   #  #   ##   # #    ##   ###    ###    ##
-    // #  #  #  #  #  #  ##    ###   # ##  # #   # ##  #  #  ##     # ##
-    // #     # ##  #  #  # #   # #   ##    # #   ##    #       ##   ##
-    // #      # #  #  #  #  #  #  #   ##    #     ##   #     ###     ##
+    // MARK: static async rankReverse
     /**
      * Retrieves the reverse rank of an item in a set.
      * @param {string} key The key to get the data for.

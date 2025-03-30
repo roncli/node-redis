@@ -22,10 +22,10 @@
         "ioredis": "5.6.0"
     },
     "devDependencies": {
-        "@babel/core": "7.26.10",
-        "@babel/eslint-parser": "7.27.0",
-        "@types/generic-pool": "3.8.3",
-        "@types/ioredis": "5.0.0"
+        "@eslint/js": "9.23.0",
+        "@stylistic/eslint-plugin": "4.2.0",
+        "@types/node": "22.13.14",
+        "eslint-plugin-jsdoc": "50.6.9"
     },
     "engines": {
         "node": ">=16.0.0"

@@ -12,23 +12,12 @@ const Cache = require("./cache"),
 
     eventEmitter = new RedisEventEmitter();
 
-//  ####              #    #
-//  #   #             #
-//  #   #   ###    ## #   ##     ###
-//  ####   #   #  #  ##    #    #
-//  # #    #####  #   #    #     ###
-//  #  #   #      #  ##    #        #
-//  #   #   ###    ## #   ###   ####
+// MARK: class Redis
 /**
  * A class to provide access to Redis.
  */
 class Redis {
-    //  ##               #
-    // #  #              #
-    // #      ###   ##   ###    ##
-    // #     #  #  #     #  #  # ##
-    // #  #  # ##  #     #  #  ##
-    //  ##    # #   ##   #  #   ##
+    // MARK: static get Cache
     /**
      * The Cache class for basic caching functions.
      * @returns {CacheType} The Cache class.
@@ -37,12 +26,7 @@ class Redis {
         return Cache;
     }
 
-    //                          #    ####         #     #     #
-    //                          #    #                  #     #
-    //  ##   # #    ##   ###   ###   ###   # #   ##    ###   ###    ##   ###
-    // # ##  # #   # ##  #  #   #    #     ####   #     #     #    # ##  #  #
-    // ##    # #   ##    #  #   #    #     #  #   #     #     #    ##    #
-    //  ##    #     ##   #  #    ##  ####  #  #  ###     ##    ##   ##   #
+    // MARK: static get eventEmitter
     /**
      * An event emitter that can be used to return events from the library.
      * @returns {RedisEventEmitter} The event emitter.
@@ -51,12 +35,7 @@ class Redis {
         return eventEmitter;
     }
 
-    // #  #               #      ##               #
-    // #  #               #     #  #              #
-    // ####   ###   ###   ###   #      ###   ##   ###    ##
-    // #  #  #  #  ##     #  #  #     #  #  #     #  #  # ##
-    // #  #  # ##    ##   #  #  #  #  # ##  #     #  #  ##
-    // #  #   # #  ###    #  #   ##    # #   ##   #  #   ##
+    // MARK: static get HashCache
     /**
      * The HashCache class for caching functions related to hashes.
      * @returns {HashCacheType} The HashCache class.
@@ -65,12 +44,7 @@ class Redis {
         return HashCache;
     }
 
-    //  ##                #             #   ##          #     ##               #
-    // #  #               #             #  #  #         #    #  #              #
-    //  #     ##   ###   ###    ##    ###   #     ##   ###   #      ###   ##   ###    ##
-    //   #   #  #  #  #   #    # ##  #  #    #   # ##   #    #     #  #  #     #  #  # ##
-    // #  #  #  #  #      #    ##    #  #  #  #  ##     #    #  #  # ##  #     #  #  ##
-    //  ##    ##   #       ##   ##    ###   ##    ##     ##   ##    # #   ##   #  #   ##
+    // MARK: static get SortedSetCache
     /**
      * The SortedSet class for caching functions related to sorted sets.
      * @returns {sortedSetCacheType} The SortedSetCache class.
@@ -79,13 +53,7 @@ class Redis {
         return SortedSetCache;
     }
 
-    //              #     ##   ##     #                 #
-    //              #    #  #   #                       #
-    //  ###   ##   ###   #      #    ##     ##   ###   ###
-    // #  #  # ##   #    #      #     #    # ##  #  #   #
-    //  ##   ##     #    #  #   #     #    ##    #  #   #
-    // #      ##     ##   ##   ###   ###    ##   #  #    ##
-    //  ###
+    // MARK: static getClient
     /**
      * Gets a redis client.  Intended to be called by services that only need one client.
      * @returns {PromiseLike<Redis>} A promise that resolves with the client.
@@ -94,13 +62,7 @@ class Redis {
         return Connection.pool.acquire();
     }
 
-    //               #
-    //               #
-    //  ###    ##   ###   #  #  ###
-    // ##     # ##   #    #  #  #  #
-    //   ##   ##     #    #  #  #  #
-    // ###     ##     ##   ###  ###
-    //                          #
+    // MARK: static setup
     /**
      * Setup the connection to Redis.
      * @param {{host: string, port: number, password: string}} options The connection options.

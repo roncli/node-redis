@@ -1,11 +1,3 @@
-// Add getex to ioredis typings.  TODO: Remove when @types/ioredis catches up.
-declare module "ioredis" {
-    interface Commands {
-        getex(key: KeyType, expiryMode: string, time: number, callback?: Callback<string | null>): void;
-        getex(key: KeyType, expiryMode: string, time: number): Promise<string | null>;
-    }
-}
-
 declare class Cache {
     /**
      * Adds an object to the cache.
