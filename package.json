@@ -22,7 +22,7 @@
         "ioredis": "5.6.1"
     },
     "devDependencies": {
-        "@eslint/js": "9.27.0",
+        "@eslint/js": "9.28.0",
         "@stylistic/eslint-plugin": "4.4.0",
         "@types/node": "22.15.27",
         "eslint-plugin-jsdoc": "50.6.17"
