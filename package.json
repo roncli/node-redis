@@ -19,7 +19,7 @@
     },
     "dependencies": {
         "generic-pool": "3.9.0",
-        "ioredis": "5.6.1"
+        "ioredis": "5.8.0"
     },
     "devDependencies": {
         "@eslint/js": "9.35.0",
