@@ -31,9 +31,10 @@ class HashCache {
             await client.hset(key, ...values);
 
             if (invalidationLists) {
-                for (const list of invalidationLists) {
-                    await client.sadd(list, key);
-                }
+                await invalidationLists.reduce(
+                    (prev, list) => prev.then(() => client.sadd(list, key)),
+                    Promise.resolve()
+                );
             }
 
             if (expiration) {
@@ -84,7 +85,7 @@ class HashCache {
                 return void 0;
             }
 
-            return JSON.parse(value, (k, v) => {
+            return JSON.parse(value, (_k, v) => {
                 if (typeof v === "string" && dateMatch.test(v)) {
                     return new Date(v);
                 }

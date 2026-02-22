@@ -1,5 +1,6 @@
 import Cache from "./cache"
 import HashCache from "./hashCache"
+import {Redis as IoRedis} from "ioredis"
 import RedisEventEmitter from "./redisEventEmitter"
 import SortedSetCache from "./sortedSetCache"
 
@@ -30,9 +31,9 @@ declare class Redis {
 
     /**
      * Gets a redis client.  Intended to be called by services that only need one client.
-     * @returns {PromiseLike<Redis>} A promise that resolves with the client.
+     * @returns {PromiseLike<IoRedis>} A promise that resolves with the client.
      */
-    static getClient(): PromiseLike<Redis>
+    static getClient(): PromiseLike<IoRedis>
 
     /**
      * Setup the connection to Redis.

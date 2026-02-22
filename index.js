@@ -1,16 +1,14 @@
 /**
  * @typedef {typeof import("./cache")} CacheType
  * @typedef {typeof import("./hashCache")} HashCacheType
- * @typedef {typeof import("./sortedSetCache")} sortedSetCacheType
+ * @typedef {import("ioredis").Redis} IoRedis.Redis
+ * @typedef {typeof import("./sortedSetCache")} SortedSetCacheType
  */
 
 const Cache = require("./cache"),
     Connection = require("./connection"),
     HashCache = require("./hashCache"),
-    RedisEventEmitter = require("./redisEventEmitter"),
-    SortedSetCache = require("./sortedSetCache"),
-
-    eventEmitter = new RedisEventEmitter();
+    SortedSetCache = require("./sortedSetCache");
 
 // MARK: class Redis
 /**
@@ -26,15 +24,6 @@ class Redis {
         return Cache;
     }
 
-    // MARK: static get eventEmitter
-    /**
-     * An event emitter that can be used to return events from the library.
-     * @returns {RedisEventEmitter} The event emitter.
-     */
-    static get eventEmitter() {
-        return eventEmitter;
-    }
-
     // MARK: static get HashCache
     /**
      * The HashCache class for caching functions related to hashes.
@@ -47,7 +36,7 @@ class Redis {
     // MARK: static get SortedSetCache
     /**
      * The SortedSet class for caching functions related to sorted sets.
-     * @returns {sortedSetCacheType} The SortedSetCache class.
+     * @returns {SortedSetCacheType} The SortedSetCache class.
      */
     static get SortedSetCache() {
         return SortedSetCache;
@@ -56,7 +45,7 @@ class Redis {
     // MARK: static getClient
     /**
      * Gets a redis client.  Intended to be called by services that only need one client.
-     * @returns {PromiseLike<Redis>} A promise that resolves with the client.
+     * @returns {PromiseLike<IoRedis.Redis>} A promise that resolves with the client.
      */
     static getClient() {
         return Connection.pool.acquire();
@@ -69,7 +58,7 @@ class Redis {
      * @returns {void}
      */
     static setup(options) {
-        Connection.setup(options, eventEmitter);
+        Connection.setup(options);
     }
 }
 

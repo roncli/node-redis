@@ -2,19 +2,16 @@
  * @typedef {import("./redisEventEmitter")} RedisEventEmitter
  */
 
-const GenericPool = require("generic-pool"),
-    IoRedis = require("ioredis");
+const IoRedis = require("ioredis"),
+    Pool = require("./pool");
 
 // MARK: class Connection
 /**
  * A class that handles calls to Redis.
  */
 class Connection {
-    /** @type {GenericPool.Pool<IoRedis.Redis>} */
+    /** @type {Pool} */
     static #pool;
-
-    /** @type {RedisEventEmitter} */
-    static #redisEventEmitter;
 
     /** @type {{host: string, port: number, password: string}} */
     static #redisOptions;
@@ -32,9 +29,6 @@ class Connection {
         try {
             client = new IoRedis.Redis(Connection.#redisOptions);
         } catch (err) {
-            if (client) {
-                client.removeAllListeners().disconnect();
-            }
             return Promise.reject(err);
         }
 
@@ -44,10 +38,7 @@ class Connection {
             });
 
             client.on("error", (err) => {
-                if (client) {
-                    client.removeAllListeners().disconnect();
-                }
-
+                client.disconnect();
                 rej(err);
             });
         });
@@ -60,7 +51,7 @@ class Connection {
      * @returns {Promise<void>}
      */
     static #destroy(client) {
-        return Promise.resolve(client.removeAllListeners().disconnect());
+        return Promise.resolve(client.disconnect());
     }
 
     // MARK: static #validate
@@ -77,40 +68,25 @@ class Connection {
     /**
      * Sets up the options to use with Redis.
      * @param {{host: string, port: number, password: string}} options The connection options.
-     * @param {RedisEventEmitter} eventEmitter The event emitter to use for errors.
      * @returns {void}
      */
-    static setup(options, eventEmitter) {
+    static setup(options) {
         Connection.#redisOptions = options;
-        Connection.#redisEventEmitter = eventEmitter;
     }
 
     // MARK: static get pool
     /**
      * Gets the pool to get a Redis client.
-     * @returns {GenericPool.Pool<IoRedis.Redis>} A promise that returns the Redis client.
+     * @returns {Pool} A promise that returns the Redis client.
      */
     static get pool() {
         if (!Connection.#pool) {
-            Connection.#pool = GenericPool.createPool({
+            Connection.#pool = new Pool({
                 create: Connection.#create,
                 destroy: Connection.#destroy,
-                validate: Connection.#validate
-            }, {
+                validate: Connection.#validate,
                 max: 50,
-                min: 0,
-                autostart: true,
-                testOnBorrow: true,
-                testOnReturn: true,
-                idleTimeoutMillis: 300000
-            });
-
-            Connection.#pool.on("factoryCreateError", (err) => {
-                Connection.#redisEventEmitter.emit("error", {err, message: "There was an error creating a Redis object in the pool."});
-            });
-
-            Connection.#pool.on("factoryDestroyError", (err) => {
-                Connection.#redisEventEmitter.emit("error", {err, message: "There was an error destroying a Redis object in the pool."});
+                min: 0
             });
         }
 

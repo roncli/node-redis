@@ -31,9 +31,10 @@ class SortedSetCache {
             await client.zadd(key, ...values);
 
             if (invalidationLists) {
-                for (const list of invalidationLists) {
-                    await client.sadd(list, key);
-                }
+                await invalidationLists.reduce(
+                    (prev, list) => prev.then(() => client.sadd(list, key)),
+                    Promise.resolve()
+                );
             }
 
             if (expiration) {
@@ -63,9 +64,10 @@ class SortedSetCache {
             await client.zunionstore(key, keys.length, ...keys);
 
             if (invalidationLists) {
-                for (const list of invalidationLists) {
-                    await client.sadd(list, key);
-                }
+                await invalidationLists.reduce(
+                    (prev, list) => prev.then(() => client.sadd(list, key)),
+                    Promise.resolve()
+                );
             }
 
             if (expiration) {
@@ -82,8 +84,8 @@ class SortedSetCache {
     /**
      * Counts the number of items in the sorted set.
      * @param {string} key The key.
-     * @param {string} min The minimum value to count.
-     * @param {string} max The maximum value to count.
+     * @param {string|number} min The minimum value to count.
+     * @param {string|number} max The maximum value to count.
      * @returns {Promise<number>} A promise that returns the number of items in the sorted set.
      */
     static async count(key, min, max) {
@@ -126,14 +128,14 @@ class SortedSetCache {
                     const item = items[index];
 
                     result.push({
-                        value: JSON.parse(item, (k, v) => {
+                        value: JSON.parse(item, (_k, v) => {
                             if (typeof v === "string" && dateMatch.test(v)) {
                                 return new Date(v);
                             }
 
                             return v;
                         }),
-                        score: +items[index + 1]
+                        score: Number(items[index + 1])
                     });
                 }
 
@@ -146,7 +148,7 @@ class SortedSetCache {
                 return void 0;
             }
 
-            return items.map((s) => JSON.parse(s, (k, v) => {
+            return items.map((/** @type {string} */ s) => JSON.parse(s, (_k, v) => {
                 if (typeof v === "string" && dateMatch.test(v)) {
                     return new Date(v);
                 }
@@ -187,14 +189,14 @@ class SortedSetCache {
                     const item = items[index];
 
                     result.push({
-                        value: JSON.parse(item, (k, v) => {
+                        value: JSON.parse(item, (_k, v) => {
                             if (typeof v === "string" && dateMatch.test(v)) {
                                 return new Date(v);
                             }
 
                             return v;
                         }),
-                        score: +items[index + 1]
+                        score: Number(items[index + 1])
                     });
                 }
 
@@ -207,7 +209,7 @@ class SortedSetCache {
                 return void 0;
             }
 
-            return items.map((s) => JSON.parse(s, (k, v) => {
+            return items.map((/** @type {string} */ s) => JSON.parse(s, (_k, v) => {
                 if (typeof v === "string" && dateMatch.test(v)) {
                     return new Date(v);
                 }

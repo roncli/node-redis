@@ -1,3 +1,7 @@
+/**
+ * @typedef {import("ioredis").Redis} Redis
+ */
+
 const Connection = require("./connection"),
 
     dateMatch = /^(?<year>\d{4})-(?<month>\d{2})-(?<day>\d{2})T(?<hour>\d{2}):(?<minute>\d{2}):(?<second>\d{2}(?:\.\d*))(?<timezone>Z|(?:\+|-)(?:[\d|:]*))?$/;
@@ -28,9 +32,10 @@ class Cache {
             }
 
             if (invalidationLists) {
-                for (const list of invalidationLists) {
-                    await client.sadd(list, key);
-                }
+                await invalidationLists.reduce(
+                    (prev, list) => prev.then(() => client.sadd(list, key)),
+                    Promise.resolve()
+                );
             }
         } finally {
             if (client) {
@@ -118,7 +123,7 @@ class Cache {
                 return void 0;
             }
 
-            return JSON.parse(value, (k, v) => {
+            return JSON.parse(value, (_k, v) => {
                 if (typeof v === "string" && dateMatch.test(v)) {
                     return new Date(v);
                 }
@@ -152,11 +157,13 @@ class Cache {
             const allKeys = [];
 
             while (cursor !== "0") {
+                /* eslint-disable no-await-in-loop */ // Awaiting in a loop is necessary to properly iterate through the keys.
                 if (pattern) {
                     [cursor, keys] = await client.scan(cursor || "0", "MATCH", pattern, "COUNT", 1000);
                 } else {
                     [cursor, keys] = await client.scan(cursor || "0", "COUNT", 1000);
                 }
+                /* eslint-enable no-await-in-loop */
 
                 allKeys.push(...keys);
             }
@@ -182,15 +189,18 @@ class Cache {
 
             const keys = [];
 
-            for (const list of invalidationLists) {
-                keys.push(list);
+            await invalidationLists.reduce(
+                (prev, list) => prev.then(async () => {
+                    keys.push(list);
 
-                const items = await client.smembers(list);
+                    const items = await client.smembers(list);
 
-                if (items) {
-                    keys.push(...items);
-                }
-            }
+                    if (items && items.length > 0) {
+                        keys.push(...items);
+                    }
+                }),
+                Promise.resolve()
+            );
 
             await client.del(...keys);
         } finally {

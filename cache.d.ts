@@ -43,7 +43,7 @@ declare class Cache {
      * @param {string} [pattern] The optional pattern.
      * @returns {Promise<string[]>} A promise that returns all of the matching keys.
      */
-    static getAllKeys(pattern: string): Promise<string[]>
+    static getAllKeys(pattern?: string): Promise<string[]>
 
     /**
      * Invalidates keys from a list of invalidate lists.

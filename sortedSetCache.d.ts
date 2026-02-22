@@ -22,11 +22,11 @@ declare class SortedSetCache {
     /**
      * Counts the number of items in the sorted set.
      * @param {string} key The key.
-     * @param {string} min The minimum value to count.
-     * @param {string} max The maximum value to count.
+     * @param {string|number} min The minimum value to count.
+     * @param {string|number} max The maximum value to count.
      * @returns {Promise<number>} A promise that returns the number of items in the sorted set.
      */
-    static count(key: string, min: string, max: string): Promise<number>
+    static count(key: string, min: string | number, max: string | number): Promise<number>
 
     /**
      * Retrieves data from a set.
