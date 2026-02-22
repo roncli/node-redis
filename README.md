@@ -6,6 +6,12 @@ This library is in a prerelease state.  It does not yet provide functionality fo
 
 ## Version History
 
+### v0.2.0 - 2/22/2026
+* Replaced `generic-pool` with a simpler implementation.
+* Removed `RedisEventEmitter` as it's no longer necessary.
+* Add unit tests.
+* Package updates.
+
 ### v0.1.20 - 3/29/2025
 * Uses `hset` instead of `hmset` in HashCache.
 * Package updates.
