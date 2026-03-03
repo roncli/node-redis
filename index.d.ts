@@ -1,7 +1,6 @@
 import Cache from "./cache"
 import HashCache from "./hashCache"
 import {Redis as IoRedis} from "ioredis"
-import RedisEventEmitter from "./redisEventEmitter"
 import SortedSetCache from "./sortedSetCache"
 
 declare class Redis {
@@ -10,12 +9,6 @@ declare class Redis {
      * @returns {typeof Cache} The Cache class.
      */
     static get Cache(): typeof Cache
-
-    /**
-     * An event emitter that can be used to return events from the library.
-     * @returns {RedisEventEmitter} The event emitter.
-     */
-    static get eventEmitter(): RedisEventEmitter
 
     /**
      * The HashCache class for caching functions related to hashes.

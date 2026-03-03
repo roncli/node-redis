@@ -1,7 +1,3 @@
-/**
- * @typedef {import("./redisEventEmitter")} RedisEventEmitter
- */
-
 const IoRedis = require("ioredis"),
     Pool = require("./pool");
 
