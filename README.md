@@ -6,6 +6,9 @@ This library is in a prerelease state.  It does not yet provide functionality fo
 
 ## Version History
 
+### v0.2.1 - 3/2/2026
+* Package updates.
+
 ### v0.2.0 - 2/22/2026
 * Replaced `generic-pool` with a simpler implementation.
 * Removed `RedisEventEmitter` as it's no longer necessary.
