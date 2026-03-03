@@ -30,7 +30,7 @@
         "jest": "30.2.0"
     },
     "engines": {
-        "node": ">=20.19.0"
+        "node": "^20.19.0 || ^22.13.0 || >=24"
     },
     "scripts": {
         "reinstall": "(if exist node_modules rmdir /s /q node_modules) & npm install",
