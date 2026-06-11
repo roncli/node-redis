@@ -6,6 +6,10 @@ This library is in a prerelease state.  It does not yet provide functionality fo
 
 ## Version History
 
+### v0.2.2 - 6/10/2026
+* Removed `RedisEventEmitter` from TypeScript typings.
+* Package updates.
+
 ### v0.2.1 - 3/2/2026
 * Package updates.
 
